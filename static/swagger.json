@@ -1,0 +1,134 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Rest API for RPN calculator",
+    "version": "1.0.0",
+    "title": "Calculatrice RPN"
+  },
+  "host": "localhost:5000",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "tags": [
+    {
+      "name": "stack",
+      "description": "Managing the stack and its operations"
+    }
+  ],
+  "paths": {
+    "/stack": {
+      "get": {
+        "tags": [
+          "stack"
+        ],
+        "summary": "Get the current stack",
+        "description": "Get All the elements in the stack",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "stack"
+        ],
+        "summary": "Push a number to the stack",
+        "description": "Push a number to the stack",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "value",
+            "in": "body",
+            "description": "Number to push to the stack",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request: Missing value"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "stack"
+        ],
+        "summary": "Clear the stack",
+        "description": "Clear the stack",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "number"
+            }
+          }
+        }
+
+      }
+    },
+    "/stack/{operation}": {
+      "put": {
+        "tags": ["stack"],
+        "summary": "Proceed to an operation",
+        "description": "Proceeds to an operation on the stack by reading the last two elements and applying the operation",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "operation",
+            "in": "path",
+            "description": "Operation to apply",
+            "required": true,
+            "type": "string",
+            "enum": [
+                  "add",
+                  "multiply",
+                  "divide",
+                  "subtract",
+                  "mul",
+                  "div",
+                  "sub"
+                ]
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "number"
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
